@@ -17,9 +17,11 @@ response = requests.get(zillow_url,headers=headers)
 soup = BeautifulSoup(response.text, "html.parser")
 links = soup.find_all(name="a", class_="list-card-link")
 prices = soup.find_all(name="div",class_="list-card-price")
+locations = soup.find_all(name="address",class_="list-card-addr")
 
 listing_urls = []
 all_prices = []
+all_locations = []
 
 for a in links:
    url = (a['href'])
@@ -29,6 +31,12 @@ for p in prices:
     price = p.getText().strip()
     all_prices.append(price)
     
+for l in locations: 
+    listing_address = l.getText().strip()
+    all_locations.append(listing_address)
+    
+    
 print (all_prices)
 print (listing_urls)
+print (all_locations)
    
