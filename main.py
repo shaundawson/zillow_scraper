@@ -15,8 +15,12 @@ headers={
 # Scrape Zillow
 response = requests.get(zillow_url,headers=headers)
 soup = BeautifulSoup(response.text, "html.parser")
-search_results = soup.find_all(name="div", class_="list-card-info")
+search_results = soup.find_all(name="a", class_="list-card-link")
+listing_urls = []
 
-for result in search_results:
-    listing_price = result.getText().strip()
-    print(listing_price)
+for a in search_results:
+   url = (a['href'])
+   listing_urls.append(url)
+   
+print(listing_urls)
+   
